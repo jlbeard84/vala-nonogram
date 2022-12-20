@@ -5,25 +5,8 @@ namespace Nonogram
 {
     static int main(string[] args)
     {
-        // Init GLFW
-        if(!GLFW.glinit())
-        {
-            stderr.printf("GLFW init failed!\n");
-            return -1;
-        }
-        // MacOS bullshit:
-        GLFW.set_hint(GLFW.WindowHint.CONTEXT_VERSION_MAJOR, 4);
-        GLFW.set_hint(GLFW.WindowHint.CONTEXT_VERSION_MINOR, 1);
-        GLFW.set_hint(GLFW.WindowHint.OPENGL_FORWARD_COMPAT, GL_TRUE);
-        GLFW.set_hint(GLFW.WindowHint.OPENGL_PROFILE, GLFW.OpenGLProfile.CORE);
-        // Normal window setup:
-        GLFW.set_hint_bool(GLFW.WindowHint.RESIZABLE, false); // no resize 
-        GLFW.set_hint(GLFW.WindowHint.SAMPLES, 2);            // no AA
-
-        var myNewWindow = new GLFW.Window(1280, 720, "Hello World", null, null);
-        
-        myNewWindow.set_size(640, 400);
-        myNewWindow.make_context_current();
+        var window_manager = new WindowManager();
+        window_manager.init();
 
         // create vertex attribute array 
         GLuint vao = 0; 
@@ -67,9 +50,16 @@ namespace Nonogram
                             (GLsizei)(2 * sizeof(GLfloat)), 
                             null);
         
-        // Main Loop 
-        var game = new Game();
-        game.run(myNewWindow);
+        try
+        {
+            // Main Loop 
+            var game = new Game(window_manager);
+            game.run();
+        }
+        catch (NonogramError e)
+        {
+            // do something?
+        }
 
         // Cleanup:
         glDeleteProgram(shaderprog);
