@@ -2,7 +2,7 @@
 VC:=valac
 ANDROIDCLANG:=/Users/bent/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android21-clang
 OPTS:=-v --vapidir=./vapi/
-SRC:=$(wildcard ./*.vala)
+SRC:=$(wildcard ./src/*.vala)
 GSRC:=$(wildcard ./*.gs)
 
 PKGS:=--pkg glfw3 \
@@ -10,8 +10,8 @@ PKGS:=--pkg glfw3 \
 	--pkg gio-2.0 
 INCLUDES:=	-X -I/opt/homebrew/include/ \
 	-X -I./glfw/include/ 
-#	-X -I/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers/ 
-LIBS:=-X -L/opt/homebrew/lib/ -X -lepoxy -X -L./glfw/lib-arm64/ -X -lglfw3
+#	-X -I/Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers/ 
+LIBS:=-X -L/opt/homebrew/lib/ -X -lepoxy -X -L./glfw/lib-x86_64/ -X -lglfw3
 FRAMEWORKS:=-X -framework -X Cocoa \
 	-X -framework -X IOKit 
 #	-X -framework -X OpenGL 
